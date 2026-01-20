@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ${PROD_DATASOURCE_URL}
+    username: ${PROD_DATASOURCE_USERNAME}
+    password: ${PROD_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+nats:
+  url: ${PROD_NATS_URL}
+  username: ${PROD_NATS_USERNAME}
+  password: ${PROD_NATS_PASSWORD}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${PROD_EUREKA_URL}

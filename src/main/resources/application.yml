@@ -4,12 +4,10 @@ server:
 spring:
   application:
     name: IAM
-
-  datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  config:
+    import: "optional:file:.env[.properties]"
 
   jpa:
     hibernate:
@@ -18,11 +16,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
-nats:
-  url: ${NATS_URL}
-  username: ${NATS_USERNAME}
-  password: ${NATS_PASSWORD}
 
 jwt:
   secret: ${JWT_SECRET:5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437}
@@ -36,31 +29,3 @@ management:
   endpoint:
     health:
       show-details: always
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-DATASOURCE_URL: ${DEV_DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
-DATASOURCE_USERNAME: ${DEV_DATASOURCE_USERNAME:root}
-DATASOURCE_PASSWORD: ${DEV_DATASOURCE_PASSWORD:root}
-
-NATS_URL: ${DEV_NATS_URL:nats://localhost:4222}
-NATS_USERNAME: ${DEV_NATS_USERNAME:auth-server}
-NATS_PASSWORD: ${DEV_NATS_PASSWORD:auth-secret}
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-DATASOURCE_URL: ${PROD_DATASOURCE_URL}
-DATASOURCE_USERNAME: ${PROD_DATASOURCE_USERNAME}
-DATASOURCE_PASSWORD: ${PROD_DATASOURCE_PASSWORD}
-
-NATS_URL: ${PROD_NATS_URL}
-NATS_USERNAME: ${PROD_NATS_USERNAME}
-NATS_PASSWORD: ${PROD_NATS_PASSWORD}
