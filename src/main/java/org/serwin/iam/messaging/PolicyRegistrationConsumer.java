@@ -26,18 +26,19 @@ public class PolicyRegistrationConsumer {
     private final Publisher publisher;
     private final ObjectMapper objectMapper;
 
+    @org.springframework.beans.factory.annotation.Value("${spring.profiles.active:dev}")
+    private String env;
+
     @PostConstruct
     public void start() throws Exception {
         io.nats.client.Dispatcher dispatcher = natsConnection.createDispatcher();
 
         PushSubscribeOptions pso = PushSubscribeOptions.builder()
-                .durable("iam-policy-registrar")
+                .durable("iam-policy-registrar-v2")
                 .build();
 
-        // Subscribe to all policy CRUD actions for all services
-        jetStream.subscribe("*.lambda.v1.policy.*", dispatcher, this::handleMessage, true, pso);
-        jetStream.subscribe("*.ec2.v1.policy.*", dispatcher, this::handleMessage, true, pso);
-        jetStream.subscribe("*.s3.v1.policy.*", dispatcher, this::handleMessage, true, pso);
+        // Subscribe to all policy CRUD actions for all services using a queue group
+        jetStream.subscribe(env + ".*.v1.policy.*", "iam-policy-workers", dispatcher, this::handleMessage, true, pso);
 
         log.info("NATS JetStream Consumer started for full Policy CRUD");
     }
@@ -58,7 +59,7 @@ public class PolicyRegistrationConsumer {
 
         try {
             PolicyCreateEvent event = objectMapper.readValue(msg.getData(), PolicyCreateEvent.class);
-            
+
             switch (action) {
                 case "create":
                     handleCreate(env, event, msg);
@@ -85,8 +86,8 @@ public class PolicyRegistrationConsumer {
     private void handleCreate(String env, PolicyCreateEvent event, Message msg) {
         try {
             Policy policy = policyService.registerPolicy(event);
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success", 
-                policy.getId().toString(), "Policy created successfully", null);
+            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
+                    policy.getId().toString(), "Policy created successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.created", response);
             msg.ack();
         } catch (Exception e) {
@@ -97,8 +98,8 @@ public class PolicyRegistrationConsumer {
     private void handleUpdate(String env, PolicyCreateEvent event, Message msg) {
         try {
             Policy policy = policyService.updatePolicy(event);
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success", 
-                policy.getId().toString(), "Policy updated successfully", null);
+            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
+                    policy.getId().toString(), "Policy updated successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.updated", response);
             msg.ack();
         } catch (Exception e) {
@@ -109,8 +110,8 @@ public class PolicyRegistrationConsumer {
     private void handleDelete(String env, PolicyCreateEvent event, Message msg) {
         try {
             policyService.deletePolicy(event.account_id(), event.policy_name());
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success", 
-                null, "Policy deleted successfully", null);
+            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
+                    null, "Policy deleted successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.deleted", response);
             msg.ack();
         } catch (Exception e) {
@@ -121,8 +122,8 @@ public class PolicyRegistrationConsumer {
     private void handleGet(String env, PolicyCreateEvent event, Message msg) {
         try {
             Policy policy = policyService.getPolicyByAccountAndName(event.account_id(), event.policy_name());
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success", 
-                policy.getId().toString(), policy.getPolicyDocument(), null);
+            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
+                    policy.getId().toString(), policy.getPolicyDocument(), null);
             publisher.publishResponse(env + ".iam.v1.policy.found", response);
             msg.ack();
         } catch (Exception e) {

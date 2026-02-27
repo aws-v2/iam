@@ -24,6 +24,9 @@ public class NatsConfig {
     @Value("${nats.password}")
     private String natsPassword;
 
+    @Value("${spring.profiles.active:dev}")
+    private String env;
+
     @Bean
     public Connection natsConnection() throws IOException, InterruptedException {
         io.nats.client.Options options = new io.nats.client.Options.Builder()
@@ -34,7 +37,7 @@ public class NatsConfig {
     }
 
     @Bean
-    public JetStream jetStream(Connection connection) throws IOException {
+    public JetStream jetStream(Connection connection, JetStreamManagement jsm) throws IOException {
         return connection.jetStream();
     }
 
@@ -45,12 +48,7 @@ public class NatsConfig {
 
         StreamConfiguration streamConfig = StreamConfiguration.builder()
                 .name("IAM_POLICIES")
-                .subjects(
-                        "*.lambda.v1.policy.create", "*.lambda.v1.policy.update", "*.lambda.v1.policy.delete",
-                        "*.lambda.v1.policy.get",
-                        "*.ec2.v1.policy.create", "*.ec2.v1.policy.update", "*.ec2.v1.policy.delete",
-                        "*.ec2.v1.policy.get",
-                        "*.s3.v1.policy.create", "*.s3.v1.policy.update", "*.s3.v1.policy.delete", "*.s3.v1.policy.get")
+                .subjects(env + ".*.v1.policy.*")
                 .maxAge(Duration.ofDays(7))
                 .build();
 

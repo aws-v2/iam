@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: ${DEV_DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
-    username: ${DEV_DATASOURCE_USERNAME:postgres}
-    password: ${DEV_DATASOURCE_PASSWORD:postgres}
+    username: ${DEV_DATASOURCE_USERNAME:root}
+    password: ${DEV_DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
 
 nats:

@@ -5,7 +5,8 @@ spring:
   application:
     name: IAM
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: dev
+    # active: ${SPRING_PROFILES_ACTIVE:dev}
   config:
     import: "optional:file:.env[.properties]"
 
