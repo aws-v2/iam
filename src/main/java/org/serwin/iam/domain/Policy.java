@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "policies")
+@Table(name = "policies", uniqueConstraints = { @UniqueConstraint(columnNames = { "accountId", "name" }) })
 @Data
 @NoArgsConstructor
 public class Policy {
@@ -17,12 +17,23 @@ public class Policy {
     private UUID id;
 
     @Column(nullable = false)
+    private String accountId;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String policyDocument;
 
+    @Column(nullable = false)
+    private String createdBy;
+
+    @Column(nullable = false)
+    private java.time.OffsetDateTime createdAt;
+
+    private java.time.OffsetDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_id")
+    private User user; // Optional, can be null for service-registered policies
 }

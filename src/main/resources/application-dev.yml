@@ -4,14 +4,14 @@ server:
 spring:
   datasource:
     url: ${DEV_DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
-    username: ${DEV_DATASOURCE_USERNAME:root}
-    password: ${DEV_DATASOURCE_PASSWORD:root}
+    username: ${DEV_DATASOURCE_USERNAME:postgres}
+    password: ${DEV_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
 nats:
   url: ${DEV_NATS_URL:nats://localhost:4222}
-  username: ${DEV_NATS_USERNAME:auth-server}
-  password: ${DEV_NATS_PASSWORD:auth-secret}
+  username: ${DEV_NATS_USERNAME:}
+  password: ${DEV_NATS_PASSWORD:}
 
 eureka:
   client:
