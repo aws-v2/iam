@@ -57,6 +57,12 @@ public class PolicyRegistrationConsumer {
         String env = parts[0];
         String action = parts[4]; // <env>.<service>.<version>.<domain>.<action>
 
+
+        log.warn("------------------------------------------------------------------------");
+        log.warn("Received message on {}: {}", subject, new String(msg.getData()));
+        log.warn("------------------------------------------------------------------------");
+
+
         try {
             PolicyCreateEvent event = objectMapper.readValue(msg.getData(), PolicyCreateEvent.class);
 

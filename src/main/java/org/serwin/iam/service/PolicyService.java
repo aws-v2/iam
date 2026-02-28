@@ -26,6 +26,7 @@ public class PolicyService {
     private final PolicyRepository policyRepository;
     private final PolicyAttachmentRepository attachmentRepository;
     private final ProcessedRequestRepository processedRequestRepository;
+    private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
     @Transactional
     public Policy registerPolicy(PolicyCreateEvent event) {
@@ -56,8 +57,12 @@ public class PolicyService {
         policy.setId(UUID.randomUUID());
         policy.setAccountId(event.account_id());
         policy.setName(event.policy_name());
-        // Simple serialization for demo
-        policy.setPolicyDocument(event.policy_document().toString());
+        // Use ObjectMapper for proper JSON serialization
+        try {
+            policy.setPolicyDocument(objectMapper.writeValueAsString(event.policy_document()));
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            throw new IllegalArgumentException("Invalid policy document format", e);
+        }
         policy.setCreatedBy(event.created_by());
         policy.setCreatedAt(OffsetDateTime.now());
 
@@ -85,7 +90,11 @@ public class PolicyService {
         Policy policy = policyRepository.findByAccountIdAndName(event.account_id(), event.policy_name())
                 .orElseThrow(() -> new IllegalArgumentException("Policy not found"));
 
-        policy.setPolicyDocument(event.policy_document().toString());
+        try {
+            policy.setPolicyDocument(objectMapper.writeValueAsString(event.policy_document()));
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            throw new IllegalArgumentException("Invalid policy document format", e);
+        }
         policy.setUpdatedAt(OffsetDateTime.now());
 
         return policyRepository.save(policy);

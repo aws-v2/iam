@@ -1,5 +1,6 @@
 package org.serwin.iam.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -49,6 +50,7 @@ public class DTOs {
         public record ValidationResponse(boolean valid, String userId, List<String> policies) {
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         public record PolicyCreateEvent(
                         String request_id,
                         String account_id,
@@ -59,6 +61,7 @@ public class DTOs {
                         String timestamp) {
         }
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         public record PolicyResponseEvent(
                         String request_id,
                         String status,

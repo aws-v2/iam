@@ -1,0 +1,560 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< org.serwin:IAM >---------------------------
+[INFO] Building IAM 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.1:run (default-cli) > test-compile @ IAM >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ IAM ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ IAM ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ IAM ---
+[INFO] skip non existing resourceDirectory /home/martin/Documents/new/iam/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ IAM ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.1:run (default-cli) < test-compile @ IAM <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.1:run (default-cli) @ IAM ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.1)
+
+2026-02-28T11:09:56.510+03:00  INFO 428829 --- [IAM] [           main] org.serwin.iam.IamApplication            : Starting IamApplication using Java 17.0.18 with PID 428829 (/home/martin/Documents/new/iam/target/classes started by martin in /home/martin/Documents/new/iam)
+2026-02-28T11:09:56.515+03:00  INFO 428829 --- [IAM] [           main] org.serwin.iam.IamApplication            : The following 1 profile is active: "dev"
+2026-02-28T11:09:57.934+03:00  INFO 428829 --- [IAM] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-28T11:09:58.110+03:00  INFO 428829 --- [IAM] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 162 ms. Found 5 JPA repository interfaces.
+2026-02-28T11:09:58.478+03:00  INFO 428829 --- [IAM] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=ecdae492-49ad-338c-91a4-d39e42390435
+2026-02-28T11:09:58.896+03:00  INFO 428829 --- [IAM] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8087 (http)
+2026-02-28T11:09:58.909+03:00  INFO 428829 --- [IAM] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-28T11:09:58.909+03:00  INFO 428829 --- [IAM] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-28T11:09:58.970+03:00  INFO 428829 --- [IAM] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2393 ms
+2026-02-28T11:09:59.383+03:00  INFO 428829 --- [IAM] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-28T11:09:59.436+03:00  INFO 428829 --- [IAM] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-02-28T11:10:00.100+03:00  INFO 428829 --- [IAM] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-28T11:10:00.136+03:00  INFO 428829 --- [IAM] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-28T11:10:00.282+03:00  INFO 428829 --- [IAM] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@424ec990
+2026-02-28T11:10:00.284+03:00  INFO 428829 --- [IAM] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-28T11:10:00.317+03:00  WARN 428829 --- [IAM] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-28T11:10:00.340+03:00  INFO 428829 --- [IAM] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/iam_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: iam_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-28T11:10:01.734+03:00  INFO 428829 --- [IAM] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-28T11:10:01.832+03:00  INFO 428829 --- [IAM] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-28T11:10:02.076+03:00  INFO 428829 --- [IAM] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-28T11:10:02.628+03:00  INFO 428829 --- [IAM] [           main] o.s.i.m.PolicyRegistrationConsumer       : NATS JetStream Consumer started for full Policy CRUD
+2026-02-28T11:10:02.630+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.lambda.v1.policy.create: {"request_id":"39402527-54fe-459e-8688-bb589c831d65","account_id":"acc-456","principal_arn":"arn:serw:iam::acc-456:role/lambda-role","policy_name":"lambda-s3-delete-v2","policy_document":{"Version":"2025-01-01","Statement":[{"Effect":"Allow","Action":["s3:DeleteObject"],"Resource":["arn:serw:s3:region:acc-456:bucket/images/*"]}]},"created_by":"f7b8cadd-92cb-4830-a565-a1c903597fc6","timestamp":"2026-02-28T11:10:00+03:00"}
+2026-02-28T11:10:02.725+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionManager' in thread "nats:5" while other thread holds singleton lock for other beans [org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration, org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration, securityFilterChain]
+2026-02-28T11:10:02.729+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'platformTransactionManagerCustomizers' in thread "nats:5" while other thread holds singleton lock for other beans [org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration, org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration, securityFilterChain]
+2026-02-28T11:10:02.730+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration' in thread "nats:5" while other thread holds singleton lock for other beans [org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration$EnableWebMvcConfiguration, org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration, org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration, mvcContentNegotiationManager, securityFilterChain]
+2026-02-28T11:10:02.732+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionExecutionListeners' in thread "nats:5" while other thread holds singleton lock for other beans [org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration$EnableWebMvcConfiguration, org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration, org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration, mvcContentNegotiationManager, securityFilterChain]
+2026-02-28T11:10:02.734+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'spring.transaction-org.springframework.boot.transaction.autoconfigure.TransactionProperties' in thread "nats:5" while other thread holds singleton lock for other beans [org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration$EnableWebMvcConfiguration, org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration, org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration, mvcContentNegotiationManager, securityFilterChain]
+2026-02-28T11:10:02.745+03:00  WARN 428829 --- [IAM] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-28T11:10:02.963+03:00  WARN 428829 --- [IAM] [           main] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 31bbe2e0-bb65-4b8c-8cb6-c57dfd797255
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-28T11:10:02.977+03:00  INFO 428829 --- [IAM] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+Hibernate: select count(*) from processed_requests pr1_0 where pr1_0.request_id=?
+Hibernate: select p1_0.id from policies p1_0 where p1_0.account_id=? and p1_0.name=? fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+2026-02-28T11:10:03.648+03:00 ERROR 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Error processing event: 
+
+org.springframework.orm.ObjectOptimisticLockingFailureException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '8ccbd923-958f-4d33-b88b-5d46ec55d323']
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:204) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:109) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy169.save(Unknown Source) ~[na:na]
+	at org.serwin.iam.service.PolicyService.registerPolicy(PolicyService.java:69) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.serwin.iam.service.PolicyService$$SpringCGLIB$$0.registerPolicy(<generated>) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleCreate(PolicyRegistrationConsumer.java:88) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleMessage(PolicyRegistrationConsumer.java:65) ~[classes/:na]
+	at io.nats.client.impl.NatsJetStream$AsyncMessageHandler.onMessage(NatsJetStream.java:585) ~[jnats-2.24.1.jar:na]
+	at io.nats.client.impl.NatsDispatcher.run(NatsDispatcher.java:107) ~[jnats-2.24.1.jar:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: org.hibernate.StaleObjectStateException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '8ccbd923-958f-4d33-b88b-5d46ec55d323']
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:434) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.merge(DefaultMergeEventListener.java:192) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.doMerge(DefaultMergeEventListener.java:136) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:120) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:77) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:797) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:782) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy161.merge(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:666) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.2.jar:7.0.2]
+	... 27 common frames omitted
+
+2026-02-28T11:10:03.668+03:00  INFO 428829 --- [IAM] [         nats:5] org.serwin.iam.messaging.Publisher       : Published response to dev.iam.v1.policy.error: request_id=39402527-54fe-459e-8688-bb589c831d65, status=failure
+2026-02-28T11:10:03.671+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.iam.v1.policy.error: {"request_id":"39402527-54fe-459e-8688-bb589c831d65","status":"failure","policy_id":null,"message":null,"error":"Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '8ccbd923-958f-4d33-b88b-5d46ec55d323']"}
+2026-02-28T11:10:03.672+03:00  WARN 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Unknown action: error
+2026-02-28T11:10:04.044+03:00  INFO 428829 --- [IAM] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-02-28T11:10:04.128+03:00  WARN 428829 --- [IAM] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-02-28T11:10:04.138+03:00  INFO 428829 --- [IAM] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-02-28T11:10:04.241+03:00  INFO 428829 --- [IAM] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-02-28T11:10:04.267+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-02-28T11:10:04.270+03:00  INFO 428829 --- [IAM] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-02-28T11:10:04.278+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-02-28T11:10:04.278+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-02-28T11:10:04.278+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-02-28T11:10:04.278+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-02-28T11:10:04.278+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-02-28T11:10:04.279+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-02-28T11:10:04.279+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-02-28T11:10:04.633+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-02-28T11:10:04.638+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-02-28T11:10:04.646+03:00  INFO 428829 --- [IAM] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-02-28T11:10:04.649+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1772266204648 with initial instances count: 2
+2026-02-28T11:10:04.655+03:00  INFO 428829 --- [IAM] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application IAM with eureka with status UP
+2026-02-28T11:10:04.655+03:00  INFO 428829 --- [IAM] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1772266204655, current=UP, previous=STARTING]
+2026-02-28T11:10:04.662+03:00  INFO 428829 --- [IAM] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087: registering service...
+2026-02-28T11:10:04.690+03:00  INFO 428829 --- [IAM] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8087 (http) with context path '/'
+2026-02-28T11:10:04.691+03:00  INFO 428829 --- [IAM] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8087
+2026-02-28T11:10:04.713+03:00  INFO 428829 --- [IAM] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087 - registration status: 204
+2026-02-28T11:10:04.730+03:00  INFO 428829 --- [IAM] [           main] org.serwin.iam.IamApplication            : Started IamApplication in 8.909 seconds (process running for 10.109)
+2026-02-28T11:12:34.790+03:00  INFO 428829 --- [IAM] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087 - Re-registering apps/IAM
+2026-02-28T11:12:34.791+03:00  INFO 428829 --- [IAM] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087: registering service...
+2026-02-28T11:12:34.831+03:00  INFO 428829 --- [IAM] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087 - registration status: 204
+2026-02-28T11:12:50.558+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.lambda.v1.policy.create: {"request_id":"cb6475b9-3b1c-4eb9-b373-6041def584d4","account_id":"acc-123","principal_arn":"arn:serw:iam::acc-123:role/lambda-role","policy_name":"lambda-s3-delete","policy_document":{"Version":"2025-01-01","Statement":[{"Effect":"Allow","Action":["s3:DeleteObject"],"Resource":["arn:serw:s3:region:acc-123:bucket/images/*"]}]},"created_by":"f7b8cadd-92cb-4830-a565-a1c903597fc6","timestamp":"2026-02-28T11:12:50+03:00"}
+Hibernate: select count(*) from processed_requests pr1_0 where pr1_0.request_id=?
+Hibernate: select p1_0.id from policies p1_0 where p1_0.account_id=? and p1_0.name=? fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+2026-02-28T11:12:50.596+03:00 ERROR 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Error processing event: 
+
+org.springframework.orm.ObjectOptimisticLockingFailureException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '85f5ecdc-c8c9-4345-b758-4693f30063a4']
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:204) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:109) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy169.save(Unknown Source) ~[na:na]
+	at org.serwin.iam.service.PolicyService.registerPolicy(PolicyService.java:69) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.serwin.iam.service.PolicyService$$SpringCGLIB$$0.registerPolicy(<generated>) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleCreate(PolicyRegistrationConsumer.java:88) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleMessage(PolicyRegistrationConsumer.java:65) ~[classes/:na]
+	at io.nats.client.impl.NatsJetStream$AsyncMessageHandler.onMessage(NatsJetStream.java:585) ~[jnats-2.24.1.jar:na]
+	at io.nats.client.impl.NatsDispatcher.run(NatsDispatcher.java:107) ~[jnats-2.24.1.jar:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: org.hibernate.StaleObjectStateException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '85f5ecdc-c8c9-4345-b758-4693f30063a4']
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:434) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.merge(DefaultMergeEventListener.java:192) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.doMerge(DefaultMergeEventListener.java:136) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:120) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:77) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:797) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:782) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy161.merge(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:666) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.2.jar:7.0.2]
+	... 27 common frames omitted
+
+2026-02-28T11:12:50.605+03:00  INFO 428829 --- [IAM] [         nats:5] org.serwin.iam.messaging.Publisher       : Published response to dev.iam.v1.policy.error: request_id=cb6475b9-3b1c-4eb9-b373-6041def584d4, status=failure
+2026-02-28T11:12:50.608+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.iam.v1.policy.error: {"request_id":"cb6475b9-3b1c-4eb9-b373-6041def584d4","status":"failure","policy_id":null,"message":null,"error":"Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '85f5ecdc-c8c9-4345-b758-4693f30063a4']"}
+2026-02-28T11:12:50.610+03:00  WARN 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Unknown action: error
+2026-02-28T11:12:53.582+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.lambda.v1.policy.create: {"request_id":"d4a935eb-c5b9-48d5-a4e2-81ab343fd4a2","account_id":"acc-123","principal_arn":"arn:serw:iam::acc-123:role/lambda-role","policy_name":"lambda-s3-delete","policy_document":{"Version":"2025-01-01","Statement":[{"Effect":"Allow","Action":["s3:DeleteObject"],"Resource":["arn:serw:s3:region:acc-123:bucket/images/*"]}]},"created_by":"f7b8cadd-92cb-4830-a565-a1c903597fc6","timestamp":"2026-02-28T11:12:53+03:00"}
+Hibernate: select count(*) from processed_requests pr1_0 where pr1_0.request_id=?
+Hibernate: select p1_0.id from policies p1_0 where p1_0.account_id=? and p1_0.name=? fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+2026-02-28T11:12:53.594+03:00 ERROR 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Error processing event: 
+
+org.springframework.orm.ObjectOptimisticLockingFailureException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '9cf978c7-812f-454d-87ba-db5d25cc76f6']
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:204) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:109) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy169.save(Unknown Source) ~[na:na]
+	at org.serwin.iam.service.PolicyService.registerPolicy(PolicyService.java:69) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.serwin.iam.service.PolicyService$$SpringCGLIB$$0.registerPolicy(<generated>) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleCreate(PolicyRegistrationConsumer.java:88) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleMessage(PolicyRegistrationConsumer.java:65) ~[classes/:na]
+	at io.nats.client.impl.NatsJetStream$AsyncMessageHandler.onMessage(NatsJetStream.java:585) ~[jnats-2.24.1.jar:na]
+	at io.nats.client.impl.NatsDispatcher.run(NatsDispatcher.java:107) ~[jnats-2.24.1.jar:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: org.hibernate.StaleObjectStateException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '9cf978c7-812f-454d-87ba-db5d25cc76f6']
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:434) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.merge(DefaultMergeEventListener.java:192) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.doMerge(DefaultMergeEventListener.java:136) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:120) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:77) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:797) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:782) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy161.merge(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:666) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.2.jar:7.0.2]
+	... 27 common frames omitted
+
+2026-02-28T11:12:53.596+03:00  INFO 428829 --- [IAM] [         nats:5] org.serwin.iam.messaging.Publisher       : Published response to dev.iam.v1.policy.error: request_id=d4a935eb-c5b9-48d5-a4e2-81ab343fd4a2, status=failure
+2026-02-28T11:12:53.598+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.iam.v1.policy.error: {"request_id":"d4a935eb-c5b9-48d5-a4e2-81ab343fd4a2","status":"failure","policy_id":null,"message":null,"error":"Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id '9cf978c7-812f-454d-87ba-db5d25cc76f6']"}
+2026-02-28T11:12:53.598+03:00  WARN 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Unknown action: error
+2026-02-28T11:12:59.216+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.lambda.v1.policy.create: {"request_id":"713864a7-c0a7-49c2-9ff4-9351ad87ea6d","account_id":"acc-123","principal_arn":"arn:serw:iam::acc-123:role/lambda-role","policy_name":"lambda-s3-delete","policy_document":{"Version":"2025-01-01","Statement":[{"Effect":"Allow","Action":["s3:DeleteObject"],"Resource":["arn:serw:s3:region:acc-123:bucket/images/*"]}]},"created_by":"f7b8cadd-92cb-4830-a565-a1c903597fc6","timestamp":"2026-02-28T11:12:59+03:00"}
+Hibernate: select count(*) from processed_requests pr1_0 where pr1_0.request_id=?
+Hibernate: select p1_0.id from policies p1_0 where p1_0.account_id=? and p1_0.name=? fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+2026-02-28T11:12:59.227+03:00 ERROR 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Error processing event: 
+
+org.springframework.orm.ObjectOptimisticLockingFailureException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'e09823b4-3c2e-4ed4-92be-7767e2b9e413']
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:204) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:109) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy169.save(Unknown Source) ~[na:na]
+	at org.serwin.iam.service.PolicyService.registerPolicy(PolicyService.java:69) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.serwin.iam.service.PolicyService$$SpringCGLIB$$0.registerPolicy(<generated>) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleCreate(PolicyRegistrationConsumer.java:88) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleMessage(PolicyRegistrationConsumer.java:65) ~[classes/:na]
+	at io.nats.client.impl.NatsJetStream$AsyncMessageHandler.onMessage(NatsJetStream.java:585) ~[jnats-2.24.1.jar:na]
+	at io.nats.client.impl.NatsDispatcher.run(NatsDispatcher.java:107) ~[jnats-2.24.1.jar:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: org.hibernate.StaleObjectStateException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'e09823b4-3c2e-4ed4-92be-7767e2b9e413']
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:434) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.merge(DefaultMergeEventListener.java:192) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.doMerge(DefaultMergeEventListener.java:136) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:120) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:77) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:797) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:782) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy161.merge(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:666) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.2.jar:7.0.2]
+	... 27 common frames omitted
+
+2026-02-28T11:12:59.234+03:00  INFO 428829 --- [IAM] [         nats:5] org.serwin.iam.messaging.Publisher       : Published response to dev.iam.v1.policy.error: request_id=713864a7-c0a7-49c2-9ff4-9351ad87ea6d, status=failure
+2026-02-28T11:12:59.236+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.iam.v1.policy.error: {"request_id":"713864a7-c0a7-49c2-9ff4-9351ad87ea6d","status":"failure","policy_id":null,"message":null,"error":"Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'e09823b4-3c2e-4ed4-92be-7767e2b9e413']"}
+2026-02-28T11:12:59.236+03:00  WARN 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Unknown action: error
+2026-02-28T11:13:00.158+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.lambda.v1.policy.create: {"request_id":"5a9857ff-0edf-4c87-876f-b7f2617f9e12","account_id":"acc-123","principal_arn":"arn:serw:iam::acc-123:role/lambda-role","policy_name":"lambda-s3-delete","policy_document":{"Version":"2025-01-01","Statement":[{"Effect":"Allow","Action":["s3:DeleteObject"],"Resource":["arn:serw:s3:region:acc-123:bucket/images/*"]}]},"created_by":"f7b8cadd-92cb-4830-a565-a1c903597fc6","timestamp":"2026-02-28T11:13:00+03:00"}
+Hibernate: select count(*) from processed_requests pr1_0 where pr1_0.request_id=?
+Hibernate: select p1_0.id from policies p1_0 where p1_0.account_id=? and p1_0.name=? fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+Hibernate: select p1_0.id,p1_0.account_id,p1_0.created_at,p1_0.created_by,p1_0.name,p1_0.policy_document,p1_0.updated_at,p1_0.user_id from policies p1_0 where p1_0.id=?
+2026-02-28T11:13:00.175+03:00 ERROR 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Error processing event: 
+
+org.springframework.orm.ObjectOptimisticLockingFailureException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'ee27354d-e670-4651-b155-320a99d98f8c']
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:204) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:109) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy169.save(Unknown Source) ~[na:na]
+	at org.serwin.iam.service.PolicyService.registerPolicy(PolicyService.java:69) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.serwin.iam.service.PolicyService$$SpringCGLIB$$0.registerPolicy(<generated>) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleCreate(PolicyRegistrationConsumer.java:88) ~[classes/:na]
+	at org.serwin.iam.messaging.PolicyRegistrationConsumer.handleMessage(PolicyRegistrationConsumer.java:65) ~[classes/:na]
+	at io.nats.client.impl.NatsJetStream$AsyncMessageHandler.onMessage(NatsJetStream.java:585) ~[jnats-2.24.1.jar:na]
+	at io.nats.client.impl.NatsDispatcher.run(NatsDispatcher.java:107) ~[jnats-2.24.1.jar:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: org.hibernate.StaleObjectStateException: Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'ee27354d-e670-4651-b155-320a99d98f8c']
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:434) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.merge(DefaultMergeEventListener.java:192) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.doMerge(DefaultMergeEventListener.java:136) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:120) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:77) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:797) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:782) ~[hibernate-core-7.2.0.Final.jar:7.2.0.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.2.jar:7.0.2]
+	at jdk.proxy2/jdk.proxy2.$Proxy161.merge(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:666) ~[spring-data-jpa-4.0.1.jar:4.0.1]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.1.jar:4.0.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.2.jar:7.0.2]
+	... 27 common frames omitted
+
+2026-02-28T11:13:00.177+03:00  INFO 428829 --- [IAM] [         nats:5] org.serwin.iam.messaging.Publisher       : Published response to dev.iam.v1.policy.error: request_id=5a9857ff-0edf-4c87-876f-b7f2617f9e12, status=failure
+2026-02-28T11:13:00.179+03:00  INFO 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Received message on dev.iam.v1.policy.error: {"request_id":"5a9857ff-0edf-4c87-876f-b7f2617f9e12","status":"failure","policy_id":null,"message":null,"error":"Row was already updated or deleted by another transaction for entity [org.serwin.iam.domain.Policy with id 'ee27354d-e670-4651-b155-320a99d98f8c']"}
+2026-02-28T11:13:00.180+03:00  WARN 428829 --- [IAM] [         nats:5] o.s.i.m.PolicyRegistrationConsumer       : Unknown action: error
+2026-02-28T11:13:18.166+03:00  INFO 428829 --- [IAM] [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application IAM with eureka with status DOWN
+2026-02-28T11:13:18.166+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1772266398166, current=DOWN, previous=UP]
+2026-02-28T11:13:18.167+03:00  INFO 428829 --- [IAM] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087: registering service...
+2026-02-28T11:13:18.177+03:00  INFO 428829 --- [IAM] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-28T11:13:18.177+03:00  INFO 428829 --- [IAM] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087 - registration status: 204
+2026-02-28T11:13:18.185+03:00  INFO 428829 --- [IAM] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-28T11:13:18.202+03:00  INFO 428829 --- [IAM] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-28T11:13:18.205+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-28T11:13:18.209+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-28T11:13:18.210+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2026-02-28T11:13:21.211+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2026-02-28T11:13:21.217+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_IAM/6D617274696E.bbrouter:IAM:8087 - deregister  status: 200
+2026-02-28T11:13:21.217+03:00  INFO 428829 --- [IAM] [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:32 min
+[INFO] Finished at: 2026-02-28T11:13:21+03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.1:run (default-cli) on project IAM: Process terminated with exit code: 143 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
