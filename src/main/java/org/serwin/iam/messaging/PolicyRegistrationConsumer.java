@@ -127,16 +127,16 @@ public class PolicyRegistrationConsumer {
 
     private void handleDelete(String env, JsonNode node, String requestId, Message msg) {
         try {
-            String principalId = node.path("principal_id").asText(null);
-            String resourceType = node.path("resource_type").asText(null);
-            String resourceId = node.path("resource_id").asText(null);
-            String action = node.path("action").asText(null);
-
-            if (principalId == null || resourceType == null || resourceId == null || action == null) {
-                throw new IllegalArgumentException("Missing fields for delete");
+            String id = node.path("id").asText(null);
+            if (id == null) {
+                id = node.path("policy_id").asText(null);
             }
 
-            policyService.deletePolicy(requestId, principalId, resourceType, resourceId, action);
+            if (id == null) {
+                throw new IllegalArgumentException("Missing id for delete");
+            }
+
+            policyService.deletePolicy(requestId, id);
             PolicyResponseEvent response = new PolicyResponseEvent(requestId, "success",
                     null, null, "Policy deleted successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.deleted", response);

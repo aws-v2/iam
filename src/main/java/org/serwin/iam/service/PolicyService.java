@@ -125,19 +125,17 @@ public class PolicyService {
     }
 
     @Transactional
-    public void deletePolicy(String requestId, String principalId, String resourceType, String resourceId,
-            String action) {
+    public void deletePolicy(String requestId, String policyId) {
         checkIdempotency(requestId);
 
-        if (!policyRepository.existsByPrincipalIdAndResourceTypeAndResourceIdAndAction(
-                principalId, resourceType, resourceId, action)) {
+        UUID id = UUID.fromString(policyId);
+        if (!policyRepository.existsById(id)) {
             throw new IllegalArgumentException("Policy not found");
         }
-        policyRepository.deleteByPrincipalIdAndResourceTypeAndResourceIdAndAction(
-                principalId, resourceType, resourceId, action);
+        policyRepository.deleteById(id);
 
         markProcessed(requestId);
-        log.info("Policy deleted for principal={}", principalId);
+        log.info("Policy deleted: id={}", policyId);
     }
 
     @Transactional(readOnly = true)
