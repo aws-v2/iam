@@ -7,11 +7,14 @@ spring:
     username: ${DEV_DATASOURCE_USERNAME:root}
     password: ${DEV_DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 nats:
   url: ${DEV_NATS_URL:nats://localhost:4222}
-  username: ${DEV_NATS_USERNAME:auth-server}
-  password: ${DEV_NATS_PASSWORD:auth-secret}
+  username: ${DEV_NATS_USERNAME:}
+  password: ${DEV_NATS_PASSWORD:}
 
 eureka:
   client:

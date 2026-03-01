@@ -45,7 +45,7 @@ public class AuthNatsListener {
         try {
             String json = new String(msg.getData(), StandardCharsets.UTF_8);
             ValidationRequestDTO request = objectMapper.readValue(json, ValidationRequestDTO.class);
-            log.info("Message recieved for access key: "+request.secretAccessKey());
+            log.info("Message recieved for access key: " + request.secretAccessKey());
 
             ValidationResponse response = validateKey(request.accessKeyId(), request.secretAccessKey());
             String responseJson = objectMapper.writeValueAsString(response);
@@ -77,11 +77,25 @@ public class AuthNatsListener {
             return new ValidationResponse(false, null, null);
         }
 
-        List<String> policies = policyRepository.findByUserId(key.getUser().getId()).stream()
-                .map(p -> p.getPolicyDocument())
+        List<String> policies = policyRepository.findByPrincipalId(key.getUser().getId().toString()).stream()
+                .map(p -> {
+                    try {
+                        return objectMapper.writeValueAsString(new org.serwin.iam.dto.DTOs.PolicyResponseDTO(
+                                p.getId(),
+                                p.getAccountId(),
+                                p.getPrincipalId(),
+                                p.getResourceType(),
+                                p.getResourceId(),
+                                p.getAction(),
+                                p.getCreatedBy(),
+                                p.getCreatedAt()));
+                    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+                        return "{}";
+                    }
+                })
                 .collect(Collectors.toList());
 
-        log.info("Key validation successful: keyId={}, userId={}, policiesCount={}", 
+        log.info("Key validation successful: keyId={}, userId={}, policiesCount={}",
                 accessKeyId, key.getUser().getId(), policies.size());
         return new ValidationResponse(
                 true,
