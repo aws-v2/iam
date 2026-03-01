@@ -36,12 +36,21 @@ public class DTOs {
         }
 
         public record CreatePolicyDTO(
-                        @NotBlank(message = "Policy name is required") String name,
-
-                        @NotBlank(message = "Policy document is required") String policyDocument) {
+                        @NotBlank(message = "Principal ID is required") String principalId,
+                        @NotBlank(message = "Resource Type is required") String resourceType,
+                        @NotBlank(message = "Resource ID is required") String resourceId,
+                        @NotBlank(message = "Action is required") String action) {
         }
 
-        public record PolicyResponseDTO(UUID id, String name, String policyDocument) {
+        public record PolicyResponseDTO(
+                        UUID id,
+                        String accountId,
+                        String principalId,
+                        String resourceType,
+                        String resourceId,
+                        String action,
+                        String createdBy,
+                        java.time.OffsetDateTime createdAt) {
         }
 
         public record ValidationRequestDTO(String accessKeyId, String secretAccessKey) {
@@ -54,18 +63,28 @@ public class DTOs {
         public record PolicyCreateEvent(
                         String request_id,
                         String account_id,
-                        String principal_arn,
-                        String policy_name,
-                        Object policy_document,
-                        String created_by,
-                        String timestamp) {
+                        String principal_id,
+                        String resource_type,
+                        String resource_id,
+                        String action,
+                        String created_by) {
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record PolicyUpdateEvent(
+                        String request_id,
+                        String policy_id,
+                        String resource_type,
+                        String resource_id,
+                        String action) {
         }
 
         @JsonIgnoreProperties(ignoreUnknown = true)
         public record PolicyResponseEvent(
                         String request_id,
                         String status,
-                        String policy_id,
+                        String policy_id, // optional, only if created/found
+                        Object policy, // optional, return PolicyResponseDTO or list of them
                         String message,
                         String error) {
         }

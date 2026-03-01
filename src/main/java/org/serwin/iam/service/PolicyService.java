@@ -3,11 +3,9 @@ package org.serwin.iam.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.serwin.iam.domain.Policy;
+import org.serwin.iam.domain.ProcessedRequest;
 import org.serwin.iam.domain.User;
 import org.serwin.iam.dto.DTOs.*;
-import org.serwin.iam.domain.PolicyAttachment;
-import org.serwin.iam.domain.ProcessedRequest;
-import org.serwin.iam.repository.PolicyAttachmentRepository;
 import org.serwin.iam.repository.PolicyRepository;
 import org.serwin.iam.repository.ProcessedRequestRepository;
 import org.springframework.stereotype.Service;
@@ -24,138 +22,140 @@ import java.util.stream.Collectors;
 public class PolicyService {
 
     private final PolicyRepository policyRepository;
-    private final PolicyAttachmentRepository attachmentRepository;
     private final ProcessedRequestRepository processedRequestRepository;
-    private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+
+    private static final List<String> ALLOWED_TYPES = List.of("s3", "rds", "ec2", "lambda");
+
+    private void validateResourceTypeAndAction(String resourceType, String action) {
+        if (!ALLOWED_TYPES.contains(resourceType)) {
+            throw new IllegalArgumentException("Invalid resourceType: " + resourceType);
+        }
+        boolean validAction = false;
+        switch (resourceType) {
+            case "s3":
+                validAction = List.of("PutObject", "GetObject", "DeleteObject").contains(action);
+                break;
+            case "rds":
+                validAction = List.of("UpdateDatabase", "ReadDatabase").contains(action);
+                break;
+            case "ec2":
+                validAction = List.of("StartInstances", "StopInstances", "RunInstances").contains(action);
+                break;
+            case "lambda":
+                validAction = List.of("InvokeFunction", "CreateFunction").contains(action);
+                break;
+        }
+        if (!validAction) {
+            throw new IllegalArgumentException("Invalid action " + action + " for resourceType " + resourceType);
+        }
+    }
+
+    private void checkIdempotency(String requestId) {
+        if (requestId != null && processedRequestRepository.existsById(requestId)) {
+            throw new IllegalStateException("idempotent_request_processed");
+        }
+    }
+
+    private void markProcessed(String requestId) {
+        if (requestId != null) {
+            ProcessedRequest pr = new ProcessedRequest();
+            pr.setRequestId(requestId);
+            pr.setProcessedAt(OffsetDateTime.now());
+            processedRequestRepository.save(pr);
+        }
+    }
 
     @Transactional
-    public Policy registerPolicy(PolicyCreateEvent event) {
-        // 1. Idempotency Check
-        if (processedRequestRepository.existsById(event.request_id())) {
-            log.info("Request already processed: {}", event.request_id());
-            return policyRepository.findByAccountIdAndName(event.account_id(), event.policy_name())
-                    .orElse(null);
+    public PolicyResponseDTO createPolicy(PolicyCreateEvent event) {
+        if (event.principal_id() == null || event.resource_type() == null || event.resource_id() == null
+                || event.action() == null) {
+            log.error("Missing required fields. Received: principalId={}, resourceType={}, resourceId={}, action={}",
+                    event.principal_id(), event.resource_type(), event.resource_id(), event.action());
+            throw new IllegalArgumentException("Missing required valid fields");
+        }
+        validateResourceTypeAndAction(event.resource_type(), event.action());
+
+        checkIdempotency(event.request_id());
+
+        if (policyRepository.existsByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+                event.principal_id(), event.resource_type(), event.resource_id(), event.action())) {
+            throw new IllegalStateException("duplicate_policy");
         }
 
-        // 2. Validate Payload (Basic)
-        if (event.account_id() == null || event.policy_name() == null || event.principal_arn() == null) {
-            throw new IllegalArgumentException("Missing required fields");
-        }
-
-        // 3. Validate ARN (Simple regex check)
-        if (!event.principal_arn().startsWith("arn:serw:")) {
-            throw new IllegalArgumentException("Invalid principal ARN format");
-        }
-
-        // 4. Enforce Uniqueness
-        if (policyRepository.existsByAccountIdAndName(event.account_id(), event.policy_name())) {
-            throw new IllegalStateException("duplicate_policy_name");
-        }
-
-        // 5. Create Policy
         Policy policy = new Policy();
-        policy.setId(UUID.randomUUID());
-        policy.setAccountId(event.account_id());
-        policy.setName(event.policy_name());
-        // Use ObjectMapper for proper JSON serialization
-        try {
-            policy.setPolicyDocument(objectMapper.writeValueAsString(event.policy_document()));
-        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-            throw new IllegalArgumentException("Invalid policy document format", e);
-        }
-        policy.setCreatedBy(event.created_by());
+        policy.setAccountId(event.account_id() == null ? "system" : event.account_id());
+        policy.setPrincipalId(event.principal_id());
+        policy.setResourceType(event.resource_type());
+        policy.setResourceId(event.resource_id());
+        policy.setAction(event.action());
+        policy.setCreatedBy(event.created_by() == null ? "system" : event.created_by());
         policy.setCreatedAt(OffsetDateTime.now());
 
         policy = policyRepository.save(policy);
 
-        // 6. Create Attachment
-        PolicyAttachment attachment = new PolicyAttachment();
-        attachment.setPolicy(policy);
-        attachment.setPrincipalArn(event.principal_arn());
-        attachment.setAttachedAt(OffsetDateTime.now());
-        attachmentRepository.save(attachment);
+        markProcessed(event.request_id());
 
-        // 7. Mark Processed
-        ProcessedRequest pr = new ProcessedRequest();
-        pr.setRequestId(event.request_id());
-        pr.setProcessedAt(OffsetDateTime.now());
-        processedRequestRepository.save(pr);
-
-        log.info("Policy registered via event: id={}, name={}", policy.getId(), policy.getName());
-        return policy;
+        log.info("Policy registered: id={}", policy.getId());
+        return mapToDTO(policy);
     }
 
     @Transactional
-    public Policy updatePolicy(PolicyCreateEvent event) {
-        Policy policy = policyRepository.findByAccountIdAndName(event.account_id(), event.policy_name())
+    public PolicyResponseDTO updatePolicy(PolicyUpdateEvent event) {
+        if (event.resource_type() == null || event.resource_id() == null || event.action() == null) {
+            throw new IllegalArgumentException("Missing required valid fields");
+        }
+        validateResourceTypeAndAction(event.resource_type(), event.action());
+
+        checkIdempotency(event.request_id());
+
+        Policy policy = policyRepository.findById(UUID.fromString(event.policy_id()))
                 .orElseThrow(() -> new IllegalArgumentException("Policy not found"));
 
-        try {
-            policy.setPolicyDocument(objectMapper.writeValueAsString(event.policy_document()));
-        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-            throw new IllegalArgumentException("Invalid policy document format", e);
-        }
+        policy.setResourceType(event.resource_type());
+        policy.setResourceId(event.resource_id());
+        policy.setAction(event.action());
         policy.setUpdatedAt(OffsetDateTime.now());
 
-        return policyRepository.save(policy);
+        policy = policyRepository.save(policy);
+
+        markProcessed(event.request_id());
+
+        log.info("Policy updated: id={}", policy.getId());
+        return mapToDTO(policy);
     }
 
     @Transactional
-    public void deletePolicy(String accountId, String name) {
-        if (!policyRepository.existsByAccountIdAndName(accountId, name)) {
+    public void deletePolicy(String requestId, String principalId, String resourceType, String resourceId,
+            String action) {
+        checkIdempotency(requestId);
+
+        if (!policyRepository.existsByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+                principalId, resourceType, resourceId, action)) {
             throw new IllegalArgumentException("Policy not found");
         }
-        policyRepository.deleteByAccountIdAndName(accountId, name);
+        policyRepository.deleteByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+                principalId, resourceType, resourceId, action);
+
+        markProcessed(requestId);
+        log.info("Policy deleted for principal={}", principalId);
     }
 
     @Transactional(readOnly = true)
-    public Policy getPolicyByAccountAndName(String accountId, String name) {
-        return policyRepository.findByAccountIdAndName(accountId, name)
-                .orElseThrow(() -> new IllegalArgumentException("Policy not found"));
-    }
-
-    public PolicyResponseDTO createPolicy(User user, CreatePolicyDTO dto) {
-        Policy policy = new Policy();
-        policy.setName(dto.name());
-        // In a real app, validate JSON structure here
-        policy.setPolicyDocument(dto.policyDocument());
-        policy.setUser(user);
-
-        policy = policyRepository.save(policy);
-        log.info("Policy created: id={}, name={}, userId={}", policy.getId(), policy.getName(), user.getId());
-
-        return new PolicyResponseDTO(policy.getId(), policy.getName(), policy.getPolicyDocument());
-    }
-
-    @Transactional(readOnly = true)
-    public List<PolicyResponseDTO> listPolicies(User user) {
-        return policyRepository.findByUserId(user.getId()).stream()
-                .map(p -> new PolicyResponseDTO(p.getId(), p.getName(), p.getPolicyDocument()))
+    public List<PolicyResponseDTO> getPoliciesByPrincipal(String principalId) {
+        return policyRepository.findByPrincipalId(principalId).stream()
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public PolicyResponseDTO getPolicy(User user, UUID policyId) {
-        Policy policy = policyRepository.findById(policyId)
-                .orElseThrow(() -> new IllegalArgumentException("Policy not found"));
-
-        if (!policy.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("Unauthorized: You don't own this policy");
-        }
-
-        return new PolicyResponseDTO(policy.getId(), policy.getName(), policy.getPolicyDocument());
-    }
-
-    @Transactional
-    public void deletePolicy(User user, UUID policyId) {
-        Policy policy = policyRepository.findById(policyId)
-                .orElseThrow(() -> new IllegalArgumentException("Policy not found"));
-
-        if (!policy.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("Unauthorized: You don't own this policy");
-        }
-
-        policyRepository.delete(policy);
-        log.info("Policy deleted: id={}, name={}, userId={}", policyId, policy.getName(), user.getId());
+    private PolicyResponseDTO mapToDTO(Policy policy) {
+        return new PolicyResponseDTO(
+                policy.getId(),
+                policy.getAccountId(),
+                policy.getPrincipalId(),
+                policy.getResourceType(),
+                policy.getResourceId(),
+                policy.getAction(),
+                policy.getCreatedBy(),
+                policy.getCreatedAt());
     }
 }

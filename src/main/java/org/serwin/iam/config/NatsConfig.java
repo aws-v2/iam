@@ -5,6 +5,7 @@ import io.nats.client.JetStream;
 import io.nats.client.JetStreamManagement;
 import io.nats.client.Nats;
 import io.nats.client.api.StreamConfiguration;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 @Configuration
+@Slf4j
 public class NatsConfig {
 
     @Value("${nats.url}")
@@ -46,6 +48,9 @@ public class NatsConfig {
             throws IOException, io.nats.client.JetStreamApiException {
         JetStreamManagement jsm = connection.jetStreamManagement();
 
+        // Stream listens broadly so JetStream captures all inbound policy events.
+        // The consumer-level filter + service guard in PolicyRegistrationConsumer
+        // ensures IAM never processes its own outbound responses.
         StreamConfiguration streamConfig = StreamConfiguration.builder()
                 .name("IAM_POLICIES")
                 .subjects(env + ".*.v1.policy.*")
@@ -58,6 +63,18 @@ public class NatsConfig {
         } catch (io.nats.client.JetStreamApiException e) {
             jsm.addStream(streamConfig);
         }
+
+        // Delete stale durable consumers so they are recreated with the correct
+        // subject filter on next subscribe. Safe to call on every startup.
+        for (String staleDurable : new String[] { "iam-policy-registrar-v2", "iam-policy-registrar-v3" }) {
+            try {
+                jsm.deleteConsumer("IAM_POLICIES", staleDurable);
+                log.info("Deleted stale durable consumer: {}", staleDurable);
+            } catch (io.nats.client.JetStreamApiException ignored) {
+                // Consumer did not exist — that's fine.
+            }
+        }
+
         return jsm;
     }
 }

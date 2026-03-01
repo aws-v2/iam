@@ -24,34 +24,45 @@ public class PolicyController {
     @PostMapping
     public ResponseEntity<PolicyResponseDTO> createPolicy(
             @AuthenticationPrincipal UUID userId,
-            @Valid @RequestBody CreatePolicyDTO dto
-    ) {
+            @Valid @RequestBody CreatePolicyDTO dto) {
         User user = userRepository.findById(userId).orElseThrow();
-        return ResponseEntity.ok(policyService.createPolicy(user, dto));
+        // adapt the REST payload to the Event structure our Service expects
+        PolicyCreateEvent event = new PolicyCreateEvent(
+                UUID.randomUUID().toString(), // fake requestId for REST
+                user.getId().toString(),
+                dto.principalId(),
+                dto.resourceType(),
+                dto.resourceId(),
+                dto.action(),
+                user.getId().toString());
+        return ResponseEntity.ok(policyService.createPolicy(event));
     }
 
-    @GetMapping
-    public ResponseEntity<List<PolicyResponseDTO>> listPolicies(@AuthenticationPrincipal UUID userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        return ResponseEntity.ok(policyService.listPolicies(user));
+    @GetMapping("/principal/{principalId}")
+    public ResponseEntity<List<PolicyResponseDTO>> listPoliciesByPrincipal(@PathVariable String principalId) {
+        return ResponseEntity.ok(policyService.getPoliciesByPrincipal(principalId));
     }
 
-    @GetMapping("/{policyId}")
-    public ResponseEntity<PolicyResponseDTO> getPolicy(
-            @AuthenticationPrincipal UUID userId,
-            @PathVariable UUID policyId
-    ) {
-        User user = userRepository.findById(userId).orElseThrow();
-        return ResponseEntity.ok(policyService.getPolicy(user, policyId));
+    @PutMapping("/{policyId}")
+    public ResponseEntity<PolicyResponseDTO> updatePolicy(
+            @PathVariable UUID policyId,
+            @Valid @RequestBody CreatePolicyDTO dto) {
+        PolicyUpdateEvent event = new PolicyUpdateEvent(
+                UUID.randomUUID().toString(),
+                policyId.toString(),
+                dto.resourceType(),
+                dto.resourceId(),
+                dto.action());
+        return ResponseEntity.ok(policyService.updatePolicy(event));
     }
 
-    @DeleteMapping("/{policyId}")
+    @DeleteMapping("/principal/{principalId}")
     public ResponseEntity<Void> deletePolicy(
-            @AuthenticationPrincipal UUID userId,
-            @PathVariable UUID policyId
-    ) {
-        User user = userRepository.findById(userId).orElseThrow();
-        policyService.deletePolicy(user, policyId);
+            @PathVariable String principalId,
+            @RequestParam String resourceType,
+            @RequestParam String resourceId,
+            @RequestParam String action) {
+        policyService.deletePolicy(UUID.randomUUID().toString(), principalId, resourceType, resourceId, action);
         return ResponseEntity.noContent().build();
     }
 }

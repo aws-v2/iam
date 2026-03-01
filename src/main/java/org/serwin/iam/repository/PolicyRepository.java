@@ -10,11 +10,14 @@ import java.util.UUID;
 
 @Repository
 public interface PolicyRepository extends JpaRepository<Policy, UUID> {
-    List<Policy> findByUserId(UUID userId);
+    List<Policy> findByPrincipalId(String principalId);
 
-    Optional<Policy> findByAccountIdAndName(String accountId, String name);
+    Optional<Policy> findByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+            String principalId, String resourceType, String resourceId, String action);
 
-    boolean existsByAccountIdAndName(String accountId, String name);
+    boolean existsByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+            String principalId, String resourceType, String resourceId, String action);
 
-    void deleteByAccountIdAndName(String accountId, String name);
+    void deleteByPrincipalIdAndResourceTypeAndResourceIdAndAction(
+            String principalId, String resourceType, String resourceId, String action);
 }

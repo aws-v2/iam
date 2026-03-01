@@ -1,19 +1,23 @@
 package org.serwin.iam.messaging;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nats.client.Connection;
-import io.nats.client.JetStream;
 import io.nats.client.JetStream;
 import io.nats.client.Message;
 import io.nats.client.PushSubscribeOptions;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.serwin.iam.domain.Policy;
 import org.serwin.iam.dto.DTOs.PolicyCreateEvent;
 import org.serwin.iam.dto.DTOs.PolicyResponseEvent;
+import org.serwin.iam.dto.DTOs.PolicyUpdateEvent;
+import org.serwin.iam.dto.DTOs.PolicyResponseDTO;
 import org.serwin.iam.service.PolicyService;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -34,10 +38,9 @@ public class PolicyRegistrationConsumer {
         io.nats.client.Dispatcher dispatcher = natsConnection.createDispatcher();
 
         PushSubscribeOptions pso = PushSubscribeOptions.builder()
-                .durable("iam-policy-registrar-v2")
+                .durable("iam-policy-registrar-v3")
                 .build();
 
-        // Subscribe to all policy CRUD actions for all services using a queue group
         jetStream.subscribe(env + ".*.v1.policy.*", "iam-policy-workers", dispatcher, this::handleMessage, true, pso);
 
         log.info("NATS JetStream Consumer started for full Policy CRUD");
@@ -45,7 +48,6 @@ public class PolicyRegistrationConsumer {
 
     private void handleMessage(Message msg) {
         String subject = msg.getSubject();
-        log.info("Received message on {}: {}", subject, new String(msg.getData()));
 
         String[] parts = subject.split("\\.");
         if (parts.length < 5) {
@@ -55,29 +57,37 @@ public class PolicyRegistrationConsumer {
         }
 
         String env = parts[0];
-        String action = parts[4]; // <env>.<service>.<version>.<domain>.<action>
+        String service = parts[1]; // <env>.<service>.<version>.<domain>.<action>
+        String action = parts[4];
 
+        if ("iam".equals(service)) {
+            msg.ack();
+            return;
+        }
 
-        log.warn("------------------------------------------------------------------------");
-        log.warn("Received message on {}: {}", subject, new String(msg.getData()));
-        log.warn("------------------------------------------------------------------------");
-
+        log.info("Received inbound event on {}: {}", subject, new String(msg.getData()));
 
         try {
-            PolicyCreateEvent event = objectMapper.readValue(msg.getData(), PolicyCreateEvent.class);
+            JsonNode rootNode = objectMapper.readTree(msg.getData());
+            String requestId = rootNode.hasNonNull("request_id") ? rootNode.get("request_id").asText()
+                    : UUID.randomUUID().toString();
+
+            if (requestId.trim().isEmpty()) {
+                requestId = UUID.randomUUID().toString();
+            }
 
             switch (action) {
                 case "create":
-                    handleCreate(env, event, msg);
+                    handleCreate(env, msg.getData(), requestId, msg);
                     break;
                 case "update":
-                    handleUpdate(env, event, msg);
+                    handleUpdate(env, msg.getData(), requestId, msg);
                     break;
                 case "delete":
-                    handleDelete(env, event, msg);
+                    handleDelete(env, rootNode, requestId, msg);
                     break;
                 case "get":
-                    handleGet(env, event, msg);
+                    handleGet(env, rootNode, requestId, msg);
                     break;
                 default:
                     log.warn("Unknown action: {}", action);
@@ -89,57 +99,73 @@ public class PolicyRegistrationConsumer {
         }
     }
 
-    private void handleCreate(String env, PolicyCreateEvent event, Message msg) {
+    private void handleCreate(String env, byte[] data, String requestId, Message msg) {
         try {
-            Policy policy = policyService.registerPolicy(event);
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
-                    policy.getId().toString(), "Policy created successfully", null);
+            PolicyCreateEvent event = objectMapper.readValue(data, PolicyCreateEvent.class);
+            PolicyResponseDTO policy = policyService.createPolicy(event);
+            PolicyResponseEvent response = new PolicyResponseEvent(requestId, "success",
+                    policy.id().toString(), policy, "Policy created successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.created", response);
             msg.ack();
         } catch (Exception e) {
-            handleError(env, event.request_id(), e, msg);
+            handleError(env, requestId, e, msg);
         }
     }
 
-    private void handleUpdate(String env, PolicyCreateEvent event, Message msg) {
+    private void handleUpdate(String env, byte[] data, String requestId, Message msg) {
         try {
-            Policy policy = policyService.updatePolicy(event);
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
-                    policy.getId().toString(), "Policy updated successfully", null);
+            PolicyUpdateEvent event = objectMapper.readValue(data, PolicyUpdateEvent.class);
+            PolicyResponseDTO policy = policyService.updatePolicy(event);
+            PolicyResponseEvent response = new PolicyResponseEvent(requestId, "success",
+                    policy.id().toString(), policy, "Policy updated successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.updated", response);
             msg.ack();
         } catch (Exception e) {
-            handleError(env, event.request_id(), e, msg);
+            handleError(env, requestId, e, msg);
         }
     }
 
-    private void handleDelete(String env, PolicyCreateEvent event, Message msg) {
+    private void handleDelete(String env, JsonNode node, String requestId, Message msg) {
         try {
-            policyService.deletePolicy(event.account_id(), event.policy_name());
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
-                    null, "Policy deleted successfully", null);
+            String principalId = node.path("principal_id").asText(null);
+            String resourceType = node.path("resource_type").asText(null);
+            String resourceId = node.path("resource_id").asText(null);
+            String action = node.path("action").asText(null);
+
+            if (principalId == null || resourceType == null || resourceId == null || action == null) {
+                throw new IllegalArgumentException("Missing fields for delete");
+            }
+
+            policyService.deletePolicy(requestId, principalId, resourceType, resourceId, action);
+            PolicyResponseEvent response = new PolicyResponseEvent(requestId, "success",
+                    null, null, "Policy deleted successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.deleted", response);
             msg.ack();
         } catch (Exception e) {
-            handleError(env, event.request_id(), e, msg);
+            handleError(env, requestId, e, msg);
         }
     }
 
-    private void handleGet(String env, PolicyCreateEvent event, Message msg) {
+    private void handleGet(String env, JsonNode node, String requestId, Message msg) {
         try {
-            Policy policy = policyService.getPolicyByAccountAndName(event.account_id(), event.policy_name());
-            PolicyResponseEvent response = new PolicyResponseEvent(event.request_id(), "success",
-                    policy.getId().toString(), policy.getPolicyDocument(), null);
+            String principalId = node.path("principal_id").asText(null);
+            if (principalId == null || principalId.isEmpty()) {
+                throw new IllegalArgumentException("Missing principal_id for get");
+            }
+
+            List<PolicyResponseDTO> policies = policyService.getPoliciesByPrincipal(principalId);
+            PolicyResponseEvent response = new PolicyResponseEvent(requestId, "success",
+                    null, policies, "Policies retrieved successfully", null);
             publisher.publishResponse(env + ".iam.v1.policy.found", response);
             msg.ack();
         } catch (Exception e) {
-            handleError(env, event.request_id(), e, msg);
+            handleError(env, requestId, e, msg);
         }
     }
 
     private void handleError(String env, String requestId, Exception e, Message msg) {
         log.error("Error processing event: ", e);
-        PolicyResponseEvent response = new PolicyResponseEvent(requestId, "failure", null, null, e.getMessage());
+        PolicyResponseEvent response = new PolicyResponseEvent(requestId, "failure", null, null, null, e.getMessage());
         publisher.publishResponse(env + ".iam.v1.policy.error", response);
         msg.ack(); // Ack error as we handled it by sending error response
     }
