@@ -88,4 +88,17 @@ public class DTOs {
                         String message,
                         String error) {
         }
+
+        // ── Instance Token (EC2 ↔ IAM) ──────────────────────────────────────────
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record InstanceTokenRequest(
+                        String instance_id,
+                        String user_id) {
+        }
+
+        public record InstanceTokenResponse(
+                        String token,
+                        String error) {
+        }
 }

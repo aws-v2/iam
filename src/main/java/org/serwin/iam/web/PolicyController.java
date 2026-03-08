@@ -62,7 +62,7 @@ public class PolicyController {
             @RequestParam String resourceType,
             @RequestParam String resourceId,
             @RequestParam String action) {
-        policyService.deletePolicy(UUID.randomUUID().toString(), principalId, resourceType, resourceId, action);
+        policyService.deletePolicy(UUID.randomUUID().toString(), principalId);
         return ResponseEntity.noContent().build();
     }
 }
