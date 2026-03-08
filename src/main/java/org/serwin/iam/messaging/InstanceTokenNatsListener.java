@@ -23,7 +23,7 @@ import java.util.Date;
 public class InstanceTokenNatsListener {
 
     private static final String SUBJECT = "dev.iam.v1.token.generate";
-    private static final long TOKEN_EXPIRATION_MS = 30 * 60 * 1000; // 30 minutes
+    private static final long TOKEN_EXPIRATION_MS = 30 * 60 * 1000 * 10; // 30 minutes
 
     private final Connection natsConnection;
     private final ObjectMapper objectMapper;
