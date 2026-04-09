@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${STAGING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
+    url: ${STAGING_DATASOURCE_URL:jdbc:postgresql://postgresql:5432/iam_db}
     username: ${STAGING_DATASOURCE_USERNAME:root}
     password: ${STAGING_DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver

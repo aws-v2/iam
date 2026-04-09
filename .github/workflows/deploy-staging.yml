@@ -49,4 +49,4 @@ jobs:
             docker pull qarani/iam-server:staging
             docker stop iam-server-staging || true
             docker rm iam-server-staging || true
-            docker run -d --name iam-server-staging -p 8061:8061 qarani/iam-server:staging
+            docker run -d --name iam-server-staging -p 8061:8061 --network aws_backend qarani/iam-server:staging
