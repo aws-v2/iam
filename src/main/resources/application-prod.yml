@@ -1,9 +1,29 @@
+server:
+  port: ${SERVER_PORT:8082}
+
 spring:
+  config:
+    import: "optional:file:src/main/resources/.env-prod[.properties]"
   datasource:
     url: ${PROD_DATASOURCE_URL}
     username: ${PROD_DATASOURCE_USERNAME}
     password: ${PROD_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:none}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+instance:
+  token:
+    secret: ${INSTANCE_TOKEN_SECRET}
 
 nats:
   url: ${PROD_NATS_URL}
@@ -14,3 +34,12 @@ eureka:
   client:
     service-url:
       defaultZone: ${PROD_EUREKA_URL}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

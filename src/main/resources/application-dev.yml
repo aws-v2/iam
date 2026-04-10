@@ -2,6 +2,8 @@ server:
   port: ${SERVER_PORT:8082}
 
 spring:
+  config:
+    import: "optional:file:src/main/resources/.env-dev[.properties]"
   datasource:
     url: ${DEV_DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
     username: ${DEV_DATASOURCE_USERNAME:root}
@@ -10,6 +12,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ${JWT_SECRET:5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+instance:
+  token:
+    secret: ${INSTANCE_TOKEN_SECRET:6A576E5A7234753778214125442A472D4B6150645367566B5970337336763979}
 
 nats:
   url: ${DEV_NATS_URL:nats://localhost:4222}
@@ -20,3 +34,12 @@ eureka:
   client:
     service-url:
       defaultZone: ${DEV_EUREKA_URL:http://localhost:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
