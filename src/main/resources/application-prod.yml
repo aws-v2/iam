@@ -5,9 +5,9 @@ spring:
   config:
     import: "optional:file:src/main/resources/.env-prod[.properties]"
   datasource:
-    url: ${PROD_DATASOURCE_URL}
-    username: ${PROD_DATASOURCE_USERNAME}
-    password: ${PROD_DATASOURCE_PASSWORD}
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -26,14 +26,14 @@ instance:
     secret: ${INSTANCE_TOKEN_SECRET}
 
 nats:
-  url: ${PROD_NATS_URL}
-  username: ${PROD_NATS_USERNAME}
-  password: ${PROD_NATS_PASSWORD}
+  url: ${NATS_URL}
+  username: ${NATS_USERNAME}
+  password: ${NATS_PASSWORD}
 
 eureka:
   client:
     service-url:
-      defaultZone: ${PROD_EUREKA_URL}
+      defaultZone: ${EUREKA_URL}
 
 management:
   endpoints:

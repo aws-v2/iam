@@ -5,9 +5,9 @@ spring:
   config:
     import: "optional:file:src/main/resources/.env-staging[.properties]"
   datasource:
-    url: ${STAGING_DATASOURCE_URL:jdbc:postgresql://postgresql:5432/iam_db}
-    username: ${STAGING_DATASOURCE_USERNAME:root}
-    password: ${STAGING_DATASOURCE_PASSWORD:root}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -26,14 +26,14 @@ instance:
     secret: ${INSTANCE_TOKEN_SECRET:6A576E5A7234753778214125442A472D4B6150645367566B5970337336763979}
 
 nats:
-  url: ${STAGING_NATS_URL:nats://localhost:4222}
-  username: ${STAGING_NATS_USERNAME:}
-  password: ${STAGING_NATS_PASSWORD:}
+  url: ${NATS_URL:nats://nats:4222}
+  username: ${NATS_USERNAME:}
+  password: ${NATS_PASSWORD:}
 
 eureka:
   client:
     service-url:
-      defaultZone: ${STAGING_EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URL:http://discovery-server:8761/eureka/}
 
 management:
   endpoints:
