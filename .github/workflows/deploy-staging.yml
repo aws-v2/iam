@@ -61,7 +61,7 @@ jobs:
               -e JWT_EXPIRATION=86400000 \
               -e INSTANCE_TOKEN_SECRET=6A576E5A7234753778214125442A472D4B6150645367566B5970337336763979 \
               -e NATS_URL=nats://nats-staging:4222 \
-              -e NATS_USERNAME= auth-server\
-              -e NATS_PASSWORD= auth-secret\
+              -e NATS_USERNAME=auth-server \
+              -e NATS_PASSWORD=auth-secret \
               -e EUREKA_URL=http://discovery-server:8761/eureka/ \
               qarani/iam-server:staging

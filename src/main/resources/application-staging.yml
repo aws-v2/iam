@@ -5,7 +5,7 @@ spring:
   config:
     import: "optional:file:src/main/resources/.env-staging[.properties]"
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/iam_db}
+    url: ${DATASOURCE_URL:jdbc:postgresql://postgres-staging:5432/iam_db}
     username: ${DATASOURCE_USERNAME:root}
     password: ${DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
