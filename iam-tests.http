@@ -1,0 +1,8 @@
+### Get Docs Manifest
+GET http://localhost:8082/api/v1/identity/docs
+Accept: application/json
+
+
+### Get single doc
+GET http://localhost:8082/api/v1/identity/docs/iam-quickstart
+Accept: application/json
