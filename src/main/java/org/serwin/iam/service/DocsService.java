@@ -3,6 +3,7 @@ package org.serwin.iam.service;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.serwin.iam.domain.DocType;
 import org.serwin.iam.dto.DocResponse;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
@@ -12,27 +13,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class DocsService {
 
-    private static final String BASE_PATH = "docs/";
+    private static final String PUBLIC_PATH = "docs/internal/";
+    // private static final String PUBLIC_PATH = "docs/public/";
+    private static final String INTERNAL_PATH = "docs/internal/";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Object getManifest() {
+    // =========================
+    // MANIFEST LOADER
+    // =========================
+    public Object getManifest(DocType type) {
+        String path = resolvePath(type) + "manifest.json";
+
         try (InputStream is = getClass().getClassLoader()
-                .getResourceAsStream(BASE_PATH + "manifest.json")) {
+                .getResourceAsStream(path)) {
+
+            if (is == null) {
+                throw new RuntimeException("Manifest not found: " + type);
+            }
 
             return objectMapper.readValue(is, Object.class);
 
         } catch (Exception e) {
-            throw new RuntimeException("Failed to load manifest", e);
+            throw new RuntimeException("Failed to load manifest for: " + type, e);
         }
     }
 
-    public DocResponse getDoc(String slug) {
+    // =========================
+    // SINGLE DOC LOADER
+    // =========================
+    public DocResponse getDoc(DocType type, String slug) {
+        String path = resolvePath(type) + slug + ".md";
+
         try (InputStream is = getClass().getClassLoader()
-                .getResourceAsStream(BASE_PATH + slug + ".md")) {
+                .getResourceAsStream(path)) {
 
             if (is == null) {
-                throw new RuntimeException("Doc not found: " + slug);
+                throw new RuntimeException("Doc not found: " + slug + " (" + type + ")");
             }
 
             String raw = new String(is.readAllBytes());
@@ -43,23 +60,40 @@ public class DocsService {
             throw new RuntimeException("Failed to load doc: " + slug, e);
         }
     }
-    private DocResponse parseMarkdown(String raw) {
-    if (!raw.startsWith("---")) {
-        return new DocResponse(Map.of(), raw);
+
+    // =========================
+    // PATH RESOLVER
+    // =========================
+    private String resolvePath(DocType type) {
+        return switch (type) {
+            case PUBLIC -> PUBLIC_PATH;
+            case INTERNAL -> INTERNAL_PATH;
+        };
     }
 
-    String[] parts = raw.split("---", 3);
+    // =========================
+    // MARKDOWN PARSER
+    // =========================
+    private DocResponse parseMarkdown(String raw) {
+        if (!raw.startsWith("---")) {
+            return new DocResponse(Map.of(), raw);
+        }
 
-    String metaRaw = parts[1];
-    String content = parts[2];
+        String[] parts = raw.split("---", 3);
 
-    Map<String, Object> metadata = parseYaml(metaRaw);
+        String metaRaw = parts.length > 1 ? parts[1] : "";
+        String content = parts.length > 2 ? parts[2] : "";
 
-    return new DocResponse(metadata, content.trim());
-}
+        Map<String, Object> metadata = parseYaml(metaRaw);
 
-private Map<String, Object> parseYaml(String yaml) {
-    Yaml parser = new Yaml();
-    return parser.load(yaml);
-}
+        return new DocResponse(metadata, content.trim());
+    }
+
+    // =========================
+    // YAML PARSER
+    // =========================
+    private Map<String, Object> parseYaml(String yaml) {
+        Yaml parser = new Yaml();
+        return parser.load(yaml);
+    }
 }
