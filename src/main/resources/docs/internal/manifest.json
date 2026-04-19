@@ -2,7 +2,7 @@
   "service": "iam-service",
   "version": "1.0.0",
   "type": "internal",
-  "title": "IAM Internal Documentation",
+  "title": "IAM Internal Documentation...",
   "description": "Internal engineering documentation for Identity and Access Management service",
   "categories": [
     {
