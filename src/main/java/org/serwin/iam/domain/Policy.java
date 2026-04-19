@@ -41,7 +41,4 @@ public class Policy {
 
     private java.time.OffsetDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user; // optional, null for system/service-created policies
 }
