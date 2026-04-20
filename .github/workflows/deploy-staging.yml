@@ -64,4 +64,5 @@ jobs:
               -e NATS_USERNAME=nats-staging-user \
               -e NATS_PASSWORD=nats-staging-password \
               -e EUREKA_URL=http://discovery-server-staging:8761/eureka/ \
+              -e NATS_SUBJECT_PREFIX=staging.v1 \
               qarani/iam-server:staging
