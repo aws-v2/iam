@@ -27,6 +27,8 @@ nats:
   url: ${NATS_URL:nats://nats-staging:4222}
   username: ${NATS_USERNAME:nats-staging-user}
   password: ${NATS_PASSWORD:nats-staging-password}
+  subjects:
+    prefix: ${NATS_SUBJECT_PREFIX:staging.v1}
 
 eureka:
   client:
