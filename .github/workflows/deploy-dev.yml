@@ -54,7 +54,7 @@ jobs:
   
 
   open-pr-to-staging:
-    needs: dev-test
+    needs: dev-build
     runs-on: ubuntu-latest
 
     steps:
