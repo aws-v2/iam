@@ -75,10 +75,10 @@ jobs:
             docker pull qarani/iam-server:staging
             docker stop iam-server-staging || true
             docker rm iam-server-staging || true
-            docker run -d --name iam-server-staging -p 8061:8061 \
+            docker run -d --name iam-server-staging -p 8082:8082 \
               --network aws-staging-network \
               -e SPRING_PROFILES_ACTIVE=staging \
-              -e SERVER_PORT=8061 \
+              -e SERVER_PORT=8082 \
               -e DATASOURCE_URL=jdbc:postgresql://postgres-staging:5432/iam_db \
               -e DATASOURCE_USERNAME=postgres-staging-user \
               -e DATASOURCE_PASSWORD=postgres-staging-password \
