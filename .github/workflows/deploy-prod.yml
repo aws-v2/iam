@@ -70,23 +70,28 @@ jobs:
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
+            docker network create --driver overlay aws-prod-network || true
+
             docker pull qarani/iam-server:prod
-            docker stop iam-server-prod || true
-            docker rm iam-server-prod || true
-            docker run -d --name iam-server-prod -p 8061:8061 \
+
+            docker service rm iam-server-prod || true
+
+            docker service create \
+              --name iam-server-prod \
               --network aws-prod-network \
-              -e SPRING_PROFILES_ACTIVE=prod \
-              -e SERVER_PORT=8061 \
-              -e DATASOURCE_URL=jdbc:postgresql://postgres-prod:5432/iam_db \
-              -e DATASOURCE_USERNAME=postgres-prod-user \
-              -e DATASOURCE_PASSWORD=postgres-prod-password \
-              -e JPA_SHOW_SQL=true \
-              -e JWT_SECRET=5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437 \
-              -e JWT_EXPIRATION=86400000 \
-              -e INSTANCE_TOKEN_SECRET=6A576E5A7234753778214125442A472D4B6150645367566B5970337336763979 \
-              -e NATS_URL=nats://nats-prod:4222 \
-              -e NATS_USERNAME=nats-prod-user \
-              -e NATS_PASSWORD=nats-prod-password \
-              -e EUREKA_URL=http://discovery-server-prod:8761/eureka/ \
-              -e NATS_SUBJECT_PREFIX=prod.v1 \
+              --publish published=8061,target=8061 \
+              --env SPRING_PROFILES_ACTIVE=prod \
+              --env SERVER_PORT=8061 \
+              --env DATASOURCE_URL=jdbc:postgresql://postgres-prod:5432/iam_db \
+              --env DATASOURCE_USERNAME=postgres-prod-user \
+              --env DATASOURCE_PASSWORD=postgres-prod-password \
+              --env JPA_SHOW_SQL=true \
+              --env JWT_SECRET=5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437 \
+              --env JWT_EXPIRATION=86400000 \
+              --env INSTANCE_TOKEN_SECRET=6A576E5A7234753778214125442A472D4B6150645367566B5970337336763979 \
+              --env NATS_URL=nats://nats-prod:4222 \
+              --env NATS_USERNAME=nats-prod-user \
+              --env NATS_PASSWORD=nats-prod-password \
+              --env EUREKA_URL=http://discovery-server-prod:8761/eureka/ \
+              --env NATS_SUBJECT_PREFIX=prod.v1 \
               qarani/iam-server:prod
