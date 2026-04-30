@@ -1,5 +1,3 @@
-# Multi-stage Dockerfile for Auth Server
-# Stage 1: Build stage
 FROM maven:3.9.5-eclipse-temurin-17-alpine AS build
 
 # Set working directory
