@@ -228,7 +228,7 @@ Before you begin, ensure you have the following installed:
    ```bash
    ./mvnw spring-boot:run
    ```
-   The service will start on **http://localhost:8082**
+   The service will start on **http://localhost:7632**
 
 ### Quick Start
 
@@ -236,7 +236,7 @@ Follow these steps to verify everything works:
 
 #### 1. Check Health
 ```bash
-curl http://localhost:8082/actuator/health
+curl http://localhost:7632/actuator/health
 ```
 
 Expected response:
@@ -252,7 +252,7 @@ Expected response:
 
 #### 2. Register a User
 ```bash
-curl -X POST http://localhost:8082/auth/register \
+curl -X POST http://localhost:7632/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "alice@example.com",
@@ -272,7 +272,7 @@ Response:
 ```bash
 TOKEN="<your-token-from-registration>"
 
-curl -X POST http://localhost:8082/api/keys \
+curl -X POST http://localhost:7632/api/keys \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -287,7 +287,7 @@ Response (secret shown only once!):
 
 #### 4. Create a Policy
 ```bash
-curl -X POST http://localhost:8082/api/policies \
+curl -X POST http://localhost:7632/api/policies \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -324,7 +324,7 @@ The service is configured via `src/main/resources/application.properties`:
 
 ```properties
 # Server Configuration
-server.port=8082
+server.port=7632
 
 # Database (PostgreSQL)
 spring.datasource.url=jdbc:postgresql://localhost:5432/iam_db
@@ -355,7 +355,7 @@ All configuration can be overridden with environment variables:
 
 | Variable | Description | Default Value | Required |
 |----------|-------------|---------------|----------|
-| `SERVER_PORT` | Application port | `8082` | No |
+| `SERVER_PORT` | Application port | `7632` | No |
 | `DATABASE_URL` | PostgreSQL JDBC URL | `jdbc:postgresql://localhost:5432/iam_db` | No |
 | `DATABASE_USERNAME` | Database username | `root` | No |
 | `DATABASE_PASSWORD` | Database password | `root` | No |
@@ -421,7 +421,7 @@ Register a new user account.
 
 **Request:**
 ```bash
-curl -X POST http://localhost:8082/auth/register \
+curl -X POST http://localhost:7632/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -457,7 +457,7 @@ Authenticate and receive JWT token.
 
 **Request:**
 ```bash
-curl -X POST http://localhost:8082/auth/login \
+curl -X POST http://localhost:7632/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -488,7 +488,7 @@ List user's access keys (secrets hidden).
 
 **Request:**
 ```bash
-curl http://localhost:8082/api/keys \
+curl http://localhost:7632/api/keys \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -516,7 +516,7 @@ Create a new access key pair.
 
 **Request:**
 ```bash
-curl -X POST http://localhost:8082/api/keys \
+curl -X POST http://localhost:7632/api/keys \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -539,7 +539,7 @@ Delete an access key permanently.
 
 **Request:**
 ```bash
-curl -X DELETE http://localhost:8082/api/keys/AKIA1234567890123456 \
+curl -X DELETE http://localhost:7632/api/keys/AKIA1234567890123456 \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -557,7 +557,7 @@ Update access key status (activate/deactivate).
 
 **Request:**
 ```bash
-curl -X PUT http://localhost:8082/api/keys/AKIA1234567890123456/status \
+curl -X PUT http://localhost:7632/api/keys/AKIA1234567890123456/status \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"status": "INACTIVE"}'
@@ -582,7 +582,7 @@ Create a new policy.
 
 **Request:**
 ```bash
-curl -X POST http://localhost:8082/api/policies \
+curl -X POST http://localhost:7632/api/policies \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -608,7 +608,7 @@ List all user's policies.
 
 **Request:**
 ```bash
-curl http://localhost:8082/api/policies \
+curl http://localhost:7632/api/policies \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -631,7 +631,7 @@ Get a specific policy by ID.
 
 **Request:**
 ```bash
-curl http://localhost:8082/api/policies/550e8400-e29b-41d4-a716-446655440000 \
+curl http://localhost:7632/api/policies/550e8400-e29b-41d4-a716-446655440000 \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -652,7 +652,7 @@ Delete a policy.
 
 **Request:**
 ```bash
-curl -X DELETE http://localhost:8082/api/policies/550e8400-e29b-41d4-a716-446655440000 \
+curl -X DELETE http://localhost:7632/api/policies/550e8400-e29b-41d4-a716-446655440000 \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -668,7 +668,7 @@ Service health status (no authentication required).
 
 **Request:**
 ```bash
-curl http://localhost:8082/actuator/health
+curl http://localhost:7632/actuator/health
 ```
 
 **Response (200 OK):**
@@ -702,7 +702,7 @@ Application metadata.
 
 **Request:**
 ```bash
-curl http://localhost:8082/actuator/info
+curl http://localhost:7632/actuator/info
 ```
 
 ---
@@ -1158,7 +1158,7 @@ src/main/java/org/serwin/iam/
 
 3. **Verify**
    ```bash
-   curl http://localhost:8082/actuator/health
+   curl http://localhost:7632/actuator/health
    ```
 
 ### Hot Reload (Optional)
@@ -1197,7 +1197,7 @@ docker build -t iam-service:1.0.0 .
 
 # Run container
 docker run -d \
-  -p 8082:8082 \
+  -p 7632:7632 \
   -e JWT_SECRET="your-secret" \
   -e DATABASE_URL="jdbc:postgresql://host:5432/iam" \
   -e DATABASE_USERNAME="user" \
@@ -1269,7 +1269,7 @@ spec:
       - name: iam
         image: iam-service:1.0.0
         ports:
-        - containerPort: 8082
+        - containerPort: 7632
         env:
         - name: JWT_SECRET
           valueFrom:
@@ -1284,13 +1284,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
-            port: 8082
+            port: 7632
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /actuator/health
-            port: 8082
+            port: 7632
           initialDelaySeconds: 10
           periodSeconds: 5
 ```
@@ -1303,7 +1303,7 @@ spec:
 
 ```bash
 # 1. Register
-curl -X POST http://localhost:8082/auth/register \
+curl -X POST http://localhost:7632/auth/register \
   -H "Content-Type: application/json" \
   -d '{"email":"dev@example.com","password":"DevPass123"}'
 
@@ -1311,7 +1311,7 @@ curl -X POST http://localhost:8082/auth/register \
 TOKEN="<token-from-response>"
 
 # 2. Create Access Key
-curl -X POST http://localhost:8082/api/keys \
+curl -X POST http://localhost:7632/api/keys \
   -H "Authorization: Bearer $TOKEN"
 
 # Save credentials
@@ -1319,7 +1319,7 @@ ACCESS_KEY_ID="AKIA..."
 SECRET_ACCESS_KEY="..."
 
 # 3. Create Policy
-curl -X POST http://localhost:8082/api/policies \
+curl -X POST http://localhost:7632/api/policies \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1328,21 +1328,21 @@ curl -X POST http://localhost:8082/api/policies \
   }'
 
 # 4. List Keys
-curl http://localhost:8082/api/keys \
+curl http://localhost:7632/api/keys \
   -H "Authorization: Bearer $TOKEN"
 
 # 5. List Policies
-curl http://localhost:8082/api/policies \
+curl http://localhost:7632/api/policies \
   -H "Authorization: Bearer $TOKEN"
 
 # 6. Deactivate Key
-curl -X PUT http://localhost:8082/api/keys/$ACCESS_KEY_ID/status \
+curl -X PUT http://localhost:7632/api/keys/$ACCESS_KEY_ID/status \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"status":"INACTIVE"}'
 
 # 7. Delete Key
-curl -X DELETE http://localhost:8082/api/keys/$ACCESS_KEY_ID \
+curl -X DELETE http://localhost:7632/api/keys/$ACCESS_KEY_ID \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -1489,7 +1489,7 @@ See [Usage Examples](#usage-examples) section.
 
 1. **Import collection** (create file `IAM.postman_collection.json`)
 2. **Set variables:**
-   - `base_url`: `http://localhost:8082`
+   - `base_url`: `http://localhost:7632`
    - `token`: `<JWT-from-login>`
 3. **Run collection**
 
@@ -1596,12 +1596,12 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 
 **Check Actuator Health:**
 ```bash
-curl http://localhost:8082/actuator/health
+curl http://localhost:7632/actuator/health
 ```
 
 **View All Endpoints:**
 ```bash
-curl http://localhost:8082/actuator/mappings
+curl http://localhost:7632/actuator/mappings
 ```
 
 ---
@@ -1686,18 +1686,18 @@ spring.datasource.hikari.connection-timeout=20000
 
 **Health:**
 ```bash
-curl http://localhost:8082/actuator/health
+curl http://localhost:7632/actuator/health
 ```
 
 **Metrics:**
 ```bash
-curl http://localhost:8082/actuator/metrics
-curl http://localhost:8082/actuator/metrics/jvm.memory.used
+curl http://localhost:7632/actuator/metrics
+curl http://localhost:7632/actuator/metrics/jvm.memory.used
 ```
 
 **Info:**
 ```bash
-curl http://localhost:8082/actuator/info
+curl http://localhost:7632/actuator/info
 ```
 
 ### Logging Strategy
