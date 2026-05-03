@@ -39,7 +39,7 @@ RUN mkdir -p /app/logs && \
 USER appuser
 
 # Expose port
-EXPOSE 8082
+EXPOSE 7632
 
 # Accept Spring profile as build argument (defaults to dev)
 ARG SPRING_PROFILES_ACTIVE=staging
@@ -50,7 +50,7 @@ ENV JAVA_OPTS="-Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+Hea
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:8082/actuator/health || exit 1
+  CMD curl -f http://localhost:7632/actuator/health || exit 1
 
 # Run the application
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]

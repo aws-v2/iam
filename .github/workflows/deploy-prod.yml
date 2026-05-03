@@ -86,10 +86,10 @@ jobs:
               docker service create \
                 --name iam-server-prod \
                 --network aws-prod-network \
-                --publish published=8082,target=8082 \
+                --publish published=7632,target=7632 \
                 --replicas 1 \
                 --env SPRING_PROFILES_ACTIVE=prod \
-                --env SERVER_PORT=8082 \
+                --env SERVER_PORT=7632 \
                 --env DATASOURCE_URL=jdbc:postgresql://postgres-prod:5432/iam_db \
                 --env DATASOURCE_USERNAME=postgres-prod-user \
                 --env DATASOURCE_PASSWORD=postgres-prod-password \
