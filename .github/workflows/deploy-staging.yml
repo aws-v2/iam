@@ -49,7 +49,8 @@ jobs:
       with:
         context: .
         push: true
-        tags: qarani/iam-server:staging
+        tags: qarani/iam-server:staging-${{github.sha}}
+              qarani/iam-server:staging
         build-args: |
           SPRING_PROFILES_ACTIVE=staging
 
@@ -72,14 +73,14 @@ jobs:
           username: ${{ secrets.STAGING_USERNAME }}
           key: ${{ secrets.STAGING_SSH_KEY }}
           script: |
-            docker pull qarani/iam-server:staging
+            docker pull qarani/iam-server:staging-${{github.sha}}
             docker stop iam-server-staging || true
             docker rm iam-server-staging || true
             docker run -d --name iam-server-staging -p 7632:7632 \
               --network aws-staging-network \
               -e SPRING_PROFILES_ACTIVE=staging \
               -e SERVER_PORT=7632 \
-              -e DATASOURCE_URL=jdbc:postgresql://postgres-staging:5432/iam_db \
+              -e DATASOURCE_URL=jdbc:postgresql://postgres-staging:5432/iam_db2 \
               -e DATASOURCE_USERNAME=postgres-staging-user \
               -e DATASOURCE_PASSWORD=postgres-staging-password \
               -e JPA_SHOW_SQL=true \
@@ -91,7 +92,7 @@ jobs:
               -e NATS_PASSWORD=nats-staging-password \
               -e EUREKA_URL=http://discovery-server-staging:8761/eureka/ \
               -e NATS_SUBJECT_PREFIX=staging.v1 \
-              qarani/iam-server:staging
+              qarani/iam-server:staging-${{github.sha}}
 
 
   staging-open-pr-to-main:

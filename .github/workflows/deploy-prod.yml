@@ -90,7 +90,7 @@ jobs:
                 --replicas 1 \
                 --env SPRING_PROFILES_ACTIVE=prod \
                 --env SERVER_PORT=7632 \
-                --env DATASOURCE_URL=jdbc:postgresql://postgres-prod:5432/iam_db \
+                --env DATASOURCE_URL=jdbc:postgresql://postgres-prod:5432/iam_db2 \
                 --env DATASOURCE_USERNAME=postgres-prod-user \
                 --env DATASOURCE_PASSWORD=postgres-prod-password \
                 --env JPA_SHOW_SQL=true \
