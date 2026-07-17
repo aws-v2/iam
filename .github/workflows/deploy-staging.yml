@@ -49,8 +49,9 @@ jobs:
       with:
         context: .
         push: true
-        tags: qarani/iam-server:staging-${{github.sha}}
-              qarani/iam-server:staging
+        tags: |
+            qarani/iam-server:staging-${{github.sha}}
+            qarani/iam-server:staging
         build-args: |
           SPRING_PROFILES_ACTIVE=staging
 
