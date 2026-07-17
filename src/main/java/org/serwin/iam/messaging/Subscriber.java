@@ -7,8 +7,12 @@ import io.nats.client.Message;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
+
 import org.serwin.iam.dto.InstanceTokenRequest;
 import org.serwin.iam.dto.InstanceTokenResponse;
+import org.serwin.iam.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +26,8 @@ public class Subscriber {
 
     @Value("${nats.subject.prefix}")
     private String subjectPrefix;
+
+    private final JwtUtil jwtUtil;
 
     @PostConstruct
     public void init() {
@@ -77,8 +83,24 @@ public class Subscriber {
         }
     }
 
-    private String generateToken(InstanceTokenRequest request) {
-        // ⚠️ Replace with JWT or IAM logic
-        return "token-for-" + request.getInstanceId();
+private String generateToken(InstanceTokenRequest request) {
+    java.util.Map<String, Object> extraClaims = new java.util.HashMap<>();
+
+    if (request.getPayload() != null && !request.getPayload().isEmpty()) {
+        byte[] decoded = java.util.Base64.getUrlDecoder().decode(request.getPayload());
+        try {
+            // parse the presigned-URL payload JSON and fold it into claims
+            java.util.Map<String, Object> payloadClaims =
+                objectMapper.readValue(decoded, java.util.Map.class);
+            extraClaims.putAll(payloadClaims);
+        } catch (Exception e) {
+            log.error("Failed to decode presigned payload", e);
+        }
     }
+
+    extraClaims.put("correlationId",UUID.randomUUID());
+    extraClaims.put("userId",request.getUserId());
+
+    return jwtUtil.generateTokenWithClaims(request.getUserId(), extraClaims);
+}
 }

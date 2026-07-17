@@ -3,10 +3,12 @@ package org.serwin.iam.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -17,11 +19,14 @@ import java.util.UUID;
 public class JwtUtil {
 
     private final Key key;
-    private long expiration;
+    @Value("${jwt.secret}")
+    private String secret;
+    @Value("${jwt.expiration:86400000}") // Default 24h
+    private long jwtExpiration;
 
     public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
         this.key = Keys.hmacShaKeyFor(hexToBytes(secret));
-        this.expiration = expiration;
+        this.jwtExpiration = expiration;
     }
 
     private static byte[] hexToBytes(String s) {
@@ -33,16 +38,33 @@ public class JwtUtil {
         }
         return data;
     }
-
-    public String generateToken(UUID userId) {
-        return Jwts.builder()
-                .setSubject(userId.toString())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+    public String generateToken(String username, java.util.UUID userId) {
+        java.util.Map<String, Object> claims = new java.util.HashMap<>();
+        claims.put("correlationId", userId.toString());
+        return createToken(claims, username);
     }
 
+        public String generateTokenWithClaims(String userId,java.util.Map<String, Object> extraClaims) {
+        return createToken(extraClaims, userId.toString());
+    }
+
+
+
+    private String createToken(java.util.Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new java.util.Date(System.currentTimeMillis()))
+                .expiration(new java.util.Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSignInKey())
+                .compact();
+    }
+    private SecretKey getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+  
+  
     public UUID validateTokenAndGetUserId(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(key)

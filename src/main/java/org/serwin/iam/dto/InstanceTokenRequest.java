@@ -15,4 +15,6 @@ public class InstanceTokenRequest {
 
     @JsonProperty("user_id")
     private String userId;
+    @JsonProperty("payload")
+    private String payload; // base64url-encoded JSON from Go
 }
